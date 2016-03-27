@@ -1,7 +1,5 @@
 package problem3;
 
-import problem2.ListIndexOutOfBoundsException;
-
 public class AscendinglyOrderedStringList implements AscendinglyOrderedStringListInterface  {
 	protected String[] strings = new String[3];
 	protected int numItems;
@@ -19,10 +17,20 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 	}
 
 	public void add(String item){
-		if(numItems == strings.length){
-			resize();
+		int index = search(item);
+		System.out.println("Insert index: " + index);
+		String oldString = strings[index];
+		if(numItems == strings.length || numItems + 1 == strings.length){
+			resize();			
 		}
-		strings[search(item)] = item;
+		else{				
+			for(int i = index+1; i<numItems; i++){
+				strings[i+1] = strings[i];
+			}		
+		}
+		strings[index] = item;
+		strings[index + 1] = oldString;
+		numItems++;
 	}
 
 	public void remove(int index)throws ListIndexOutOfBoundsException{
@@ -62,15 +70,17 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 
 	public int search(String item){
 		String currentString = strings[0];
+		System.out.println("search");
 		int posi = 0;
-		for(int i = 1; i < numItems; i++){
+		for(int i = 1; i <= numItems; i++){
 			int orderVal = currentString.compareTo(item);
-			if(orderVal > 0){
+			System.out.println("Compare To Value : " + orderVal);
+			if(orderVal < 0){
 				currentString = strings[i];
 			}
-			else if(orderVal <= 0){
-				posi = i;
-				i = numItems;
+			else if(orderVal >= 0){
+				posi = i - 1 ;
+				
 			}
 		}
 		return posi;
@@ -83,6 +93,18 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 			temp[i] = strings[i];
 		}
 		strings = temp;
+		System.out.println(this);
+		System.out.println(strings.length+ " ");
+		System.out.println("resize");
+	}
+	
+	public String toString()
+	{
+		String s = "";
+		for(int i =0; i<numItems; i++){
+			s += strings[i] + " ";
+		}
+		return s;
 	}
 
 

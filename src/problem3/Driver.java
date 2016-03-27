@@ -27,8 +27,9 @@ public class Driver {
 
 
 	public static void main(String[] args){
-		BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-
+		BufferedReader r = new BufferedReader(new InputStreamReader(System.in)); //BufferedReader
+		AscendinglyOrderedStringList adt = new AscendinglyOrderedStringList();
+		
 		//Only print menu once(save some paper)
 		System.out.println("\t 1. Insert specified item into list.");
 		System.out.println("\t 2. Remove item in specified position in the list.");
@@ -43,16 +44,21 @@ public class Driver {
 				switch(getSelection()){
 				case 1: 
 					String item = r.readLine();
-					
-					System.out.println("case 1");
+					adt.add(item);
+					System.out.println("Items added");
 					break;
+				
 				case 2: System.out.println("case 2");
 				break;
+				
 				case 3: System.out.println("case 3");
 				break;
+				
 				case 4: System.out.println("case 4");
 				break;
-				case 5: System.out.println("case 5");
+				
+				case 5: 
+					System.out.println(adt);				
 				break;
 				}
 			}
