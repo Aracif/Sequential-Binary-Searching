@@ -54,7 +54,9 @@ public class Driver {
 				case 3: System.out.println("case 3");
 				break;
 				
-				case 4: System.out.println("case 4");
+				case 4: 					
+					adt.strings = new String[3];
+					System.out.println("List Cleared");
 				break;
 				
 				case 5: 

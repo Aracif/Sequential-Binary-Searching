@@ -77,6 +77,7 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 			System.out.println("Compare To Value : " + orderVal);
 			if(orderVal < 0){
 				currentString = strings[i];
+				i = numItems;
 			}
 			else if(orderVal >= 0){
 				posi = i - 1 ;
