@@ -51,7 +51,10 @@ public class Driver {
 				case 2: System.out.println("case 2");
 				break;
 				
-				case 3: System.out.println("case 3");
+				case 3: 
+					String searchItem = r.readLine();
+					int i = adt.search(searchItem);
+					System.out.println(" " + i);
 				break;
 				
 				case 4: 					

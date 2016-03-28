@@ -16,22 +16,48 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		return numItems;
 	}
 
-	public void add(String item){
-		int index = search(item);
-		System.out.println("Insert index: " + index);
-		String oldString = strings[index];
-		if(numItems == strings.length || numItems + 1 == strings.length){
-			resize();			
+		public void add(String item){
+			int index = 0;
+			if(numItems >=1){
+				index = search(item);
+				System.out.println("Index" + index);			
+				if(numItems == strings.length || numItems == strings.length + 1){
+					resize();
+					
+				}			
+		
+				else if(index>=0 && index < strings.length ){					
+					for(int i = numItems-1; i>=index; i--){
+						strings[i+1] = strings[i];
+					}
+				}
+			}
+	
+			strings[index] = item;
+			numItems++;
 		}
-		else{				
-			for(int i = index+1; i<numItems; i++){
-				strings[i+1] = strings[i];
-			}		
-		}
-		strings[index] = item;
-		strings[index + 1] = oldString;
-		numItems++;
-	}
+		
+//	public void add(String item){
+//		int index = 0;
+//		if(numItems>=1){
+//			index = search(item);
+//		}
+//
+//		if(numItems == strings.length || numItems == strings.length + 1){
+//			resize();
+//		}			
+//
+//
+//
+//		for(int i = index -1; i<numItems; i++)
+//			strings[i+1] = strings[i];
+//
+//
+//
+//
+//		strings[index] = item;
+//		numItems++;
+//	}
 
 	public void remove(int index)throws ListIndexOutOfBoundsException{
 
@@ -68,25 +94,42 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		}  // end if
 	} // end get
 
-	public int search(String item){
-		String currentString = strings[0];
-		System.out.println("search");
-		int posi = 0;
-		for(int i = 1; i <= numItems; i++){
-			int orderVal = currentString.compareTo(item);
-			System.out.println("Compare To Value : " + orderVal);
-			if(orderVal < 0){
-				currentString = strings[i];
-				i = numItems;
+
+
+	public int search(String item){	
+		//String[] s = new String[]{"c"};
+		int start = 0;
+		//numItems = 1;
+		int end = numItems - 1;
+		int mid = 0;
+		boolean notFound = true;
+		int iteration = 0;
+		while(notFound && numItems/2 >= iteration){
+			//System.out.println("loop");
+			mid = start + (end - start)/2;
+			int c = item.compareTo(strings[mid]);
+			if(c < 0){
+				end = mid - 1;
 			}
-			else if(orderVal >= 0){
-				posi = i - 1 ;
-				
+			else if(c > 0){
+				start = mid + 1;
 			}
+			else{
+				//System.out.println("found " + mid);
+				notFound = false;
+			}
+			iteration++;
 		}
-		return posi;
+		if(end == mid && notFound == true){
+			mid++;
+		}
+
+
+		return mid ;
 	}
-	
+
+
+
 	//PRIVATE resize method
 	private void resize(){
 		String[] temp = new String[strings.length + strings.length/2 + 1];
@@ -98,11 +141,11 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		System.out.println(strings.length+ " ");
 		System.out.println("resize");
 	}
-	
+
 	public String toString()
 	{
 		String s = "";
-		for(int i =0; i<numItems; i++){
+		for(int i =0; i<numItems; i++){			
 			s += strings[i] + " ";
 		}
 		return s;
