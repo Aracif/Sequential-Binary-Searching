@@ -3,6 +3,7 @@ package problem3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Driver {
 
@@ -29,7 +30,7 @@ public class Driver {
 	public static void main(String[] args){
 		BufferedReader r = new BufferedReader(new InputStreamReader(System.in)); //BufferedReader
 		AscendinglyOrderedStringList adt = new AscendinglyOrderedStringList();
-		
+
 		//Only print menu once(save some paper)
 		System.out.println("\t 1. Insert specified item into list.");
 		System.out.println("\t 2. Remove item in specified position in the list.");
@@ -45,26 +46,36 @@ public class Driver {
 				case 1: 
 					String item = r.readLine();
 					adt.add(item);
-					System.out.println("Items added");
+					System.out.println("Item was added");
 					break;
-				
-				case 2: System.out.println("case 2");
-				break;
-				
+
+				case 2: 
+					System.out.println("Enter the index of the value you wish to remove ");
+					Integer num = Integer.parseInt(r.readLine());				
+					adt.remove(num);
+					break;
+
 				case 3: 
 					String searchItem = r.readLine();
 					int i = adt.search(searchItem);
-					System.out.println(" " + i);
-				break;
-				
+					if(Arrays.asList(adt.strings).contains(searchItem)){
+						System.out.println(searchItem + " found at index " + i);
+					}
+					else{
+						System.out.println(searchItem + " D.N.E," + " insert at position " + i + 
+								" to mantain lexicographical order.");
+					}
+					break;
+
 				case 4: 					
 					adt.strings = new String[3];
 					System.out.println("List Cleared");
-				break;
-				
+					adt.numItems = 0;
+					break;
+
 				case 5: 
 					System.out.println(adt);				
-				break;
+					break;
 				}
 			}
 
