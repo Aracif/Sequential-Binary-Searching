@@ -73,34 +73,27 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 
 
 	public int search(String item){	
-		int start = 0;
-		int end = numItems - 1;
+		int lo = 0;
+		int high = numItems - 1;
 		int mid = 0;
-		boolean notFound = true;
-		int iteration = 0;
-		try{
-			while(notFound && numItems/2 >= iteration){
-				mid = start + (end - start)/2;
-				int c = item.compareTo(strings[mid]);
+		int c = 0;
+			while(lo<=high){
+				mid =  (lo+high)/2;
+				c = item.compareTo(strings[mid]);
 				if(c < 0){
-					end = mid - 1;
+					high = mid - 1;
 				}
 				else if(c > 0){
-					start = mid + 1;
+					lo = mid + 1;
 				}
 				else{
-					notFound = false;
-				}
-				iteration++;
+					lo = Integer.MAX_VALUE;
+				}				
 			}
-			if(end == mid && notFound == true){
+			if((mid == 0 && c >= 1) || (mid == numItems-1 && c >= 1)){
 				mid++;
-			}
+			}		
 			return mid ;
-		}
-		catch(NullPointerException e){
-			return mid;
-		}
 	}
 
 
