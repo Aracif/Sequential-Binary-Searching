@@ -22,17 +22,21 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		if(numItems==0){
 			index = 0;
 		}
-		else if(numItems + 1 > strings.length){
-			resize();
-			index = Math.abs(search(item));
+		else if(index == numItems && numItems <=strings.length){
+			index = numItems;
 		}
 		else{
-			index = Math.abs(search(item));
-		}
-		if(index == numItems - 1){
-			for(int i = numItems; i>index; i--)
+			if(numItems + 1 >= strings.length){
+				resize();
+				index = Math.abs(search(item));
+			}
+			else{
+				index = Math.abs(search(item));
+			}
+
+			for(int i = numItems-1; i>index; i--)
 			{
-				strings[i] = strings[i-1];
+				strings[i+1] = strings[i];
 			}
 		}
 		strings[index] = item;
@@ -99,7 +103,7 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 				mid++;
 			}
 			return mid*-1 ; //If value not found make it negative so we can 
-							//differentiate between found and not found.
+			//differentiate between found and not found.
 		}
 	}
 
