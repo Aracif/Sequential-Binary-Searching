@@ -37,7 +37,7 @@ public class Driver {
 		System.out.println("\t 3. Search list for specified item.");
 		System.out.println("\t 4. Clear list.");
 		System.out.println("\t 5. Display content of list.");
-
+		adt.add("m");
 		while(true)
 		{			
 			try{
@@ -62,6 +62,7 @@ public class Driver {
 					}
 					else{
 						i = adt.search(searchItem);
+						i++;
 						if(i>0){
 							System.out.println("Found at position " + i);
 						}

@@ -1,6 +1,5 @@
 package problem3;
 
-import problem2.ListIndexOutOfBoundsException;
 
 public interface AscendinglyOrderedStringListInterface 
 {
