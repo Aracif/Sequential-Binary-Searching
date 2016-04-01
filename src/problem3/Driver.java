@@ -30,7 +30,10 @@ public class Driver {
 	public static void main(String[] args){
 		BufferedReader r = new BufferedReader(new InputStreamReader(System.in)); //BufferedReader
 		AscendinglyOrderedStringList adt = new AscendinglyOrderedStringList();
-
+		adt.add("f");
+		adt.add("m");
+		adt.add("w");
+		adt.add("b");
 		//Only print menu once(save some paper)
 		System.out.println("\t 1. Insert specified item into list.");
 		System.out.println("\t 2. Remove item in specified position in the list.");
@@ -58,13 +61,13 @@ public class Driver {
 				case 3: 
 					String searchItem = r.readLine();
 					int i = adt.search(searchItem);
-					if(Arrays.asList(adt.strings).contains(searchItem)){
-						System.out.println(searchItem + " found at index " + i);
+					if(i<0){
+						System.out.println("Not found, cant be inserted in position: " + Math.abs(i));
 					}
 					else{
-						System.out.println(searchItem + " D.N.E," + " insert at position " + i + 
-								" to mantain lexicographical order.");
+						System.out.println("Found at position: " + i);
 					}
+					
 					break;
 
 				case 4: 					

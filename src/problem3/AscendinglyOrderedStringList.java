@@ -25,7 +25,7 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 			{
 				resize();
 			}			
-			index = search(item);		
+			index = Math.abs(search(item));		
 			for(int i = numItems; i>index; i--)
 			{
 				strings[i] = strings[i-1];
@@ -74,26 +74,32 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 
 	public int search(String item){	
 		int lo = 0;
-		int high = numItems - 1;
+		int high = numItems;
 		int mid = 0;
-		int c = 0;
-			while(lo<=high){
-				mid =  (lo+high)/2;
-				c = item.compareTo(strings[mid]);
-				if(c < 0){
-					high = mid - 1;
+		if(numItems>0){
+			while(lo<high){
+				mid =  (lo+high)/2;		
+				if(item.compareTo(strings[mid]) <= 0){
+					high = mid;
 				}
-				else if(c > 0){
+				else {
 					lo = mid + 1;
-				}
-				else{
-					lo = Integer.MAX_VALUE;
-				}				
+				}			
+			}	
+			
+			if(item.compareTo(strings[mid])==0){
+				return mid;
 			}
-			if((mid == 0 && c >= 1) || (mid == numItems-1 && c >= 1)){
-				mid++;
-			}		
-			return mid ;
+			else{
+				if(item.compareTo(strings[mid])>0){
+					mid++;
+				}
+				return mid*-1 ;
+			}
+		}
+		else{
+			return 0;
+		}
 	}
 
 
