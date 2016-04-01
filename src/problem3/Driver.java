@@ -38,6 +38,10 @@ public class Driver {
 		System.out.println("\t 4. Clear list.");
 		System.out.println("\t 5. Display content of list.");
 
+//		adt.add("m");
+//		adt.add("f");
+//		adt.add("b");
+//		adt.add("i");
 
 		while(true)
 		{			
