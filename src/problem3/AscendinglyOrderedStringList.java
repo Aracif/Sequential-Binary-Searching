@@ -18,21 +18,25 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 
 	public void add(String item)
 	{
-		int index = 0;
-		if(numItems!=0)
-		{
-			if(numItems + 1 >= strings.length)
-			{
-				resize();
-			}			
-			index = Math.abs(search(item));		
+		Integer index = null;
+		if(numItems==0){
+			index = 0;
+		}
+		else if(numItems + 1 > strings.length){
+			resize();
+			index = Math.abs(search(item));
+		}
+		else{
+			index = Math.abs(search(item));
+		}
+		if(index == numItems - 1){
 			for(int i = numItems; i>index; i--)
 			{
 				strings[i] = strings[i-1];
 			}
 		}
-		numItems++;
 		strings[index] = item;
+		numItems++;
 	}
 
 	public void remove(int index)throws ListIndexOutOfBoundsException{
@@ -76,29 +80,26 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		int lo = 0;
 		int high = numItems - 1;
 		int mid = 0;
-		if(numItems>0){
-			while(lo<high){
-				mid =  (lo+high)/2;		
-				if(item.compareTo(strings[mid]) <= 0){
-					high = mid;
-				}
-				else {
-					lo = mid + 1;
-				}			
-			}	
-			
-			if(item.compareTo(strings[mid])==0){
-				return mid;
+
+		while(lo<high){
+			mid =  (lo+high)/2;		
+			if(item.compareTo(strings[mid]) <= 0){
+				high = mid;
 			}
-			else{
-				if(item.compareTo(strings[mid])>0){
-					mid++;
-				}
-				return mid*-1 ;
-			}
+			else {
+				lo = mid + 1;
+			}			
+		}	
+
+		if(item.compareTo(strings[mid])==0){
+			return mid;
 		}
 		else{
-			return 0;
+			if(item.compareTo(strings[mid])>0){
+				mid++;
+			}
+			return mid*-1 ; //If value not found make it negative so we can 
+							//differentiate between found and not found.
 		}
 	}
 

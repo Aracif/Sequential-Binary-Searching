@@ -30,11 +30,8 @@ public class Driver {
 	public static void main(String[] args){
 		BufferedReader r = new BufferedReader(new InputStreamReader(System.in)); //BufferedReader
 		AscendinglyOrderedStringList adt = new AscendinglyOrderedStringList();
-		adt.add("f");
-		adt.add("m");
-		adt.add("w");
-		adt.add("b");
-		//Only print menu once(save some paper)
+
+		
 		System.out.println("\t 1. Insert specified item into list.");
 		System.out.println("\t 2. Remove item in specified position in the list.");
 		System.out.println("\t 3. Search list for specified item.");
@@ -60,14 +57,19 @@ public class Driver {
 
 				case 3: 
 					String searchItem = r.readLine();
-					int i = adt.search(searchItem);
-					if(i<0){
-						System.out.println("Not found, cant be inserted in position: " + Math.abs(i));
+					Integer i = null;
+					if(adt.numItems  == 0){
+						System.out.println("Not found. Insert at position 0");
 					}
 					else{
-						System.out.println("Found at position: " + i);
-					}
-					
+						i = adt.search(searchItem);
+						if(i>0){
+							System.out.println("Found at position " + i);
+						}
+						else{
+							System.out.println("Not found. Insert at position " + Math.abs(i));
+						}
+					}					
 					break;
 
 				case 4: 					
