@@ -26,19 +26,15 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		else{
 			index = Math.abs(search(item));
 			if(index == numItems){
-				System.out.println("last index case");
-				index = numItems;
+
+				resize();
 			}
-			else{
-				if(numItems == strings.length){
-					resize();				
-				}
-				System.out.println("Copy");
-				for(int i = numItems-1; i>=index; i--)
-				{
-					strings[i+1] = strings[i];
-				}
+
+			for(int i = numItems-1; i>=index; i--)
+			{
+				strings[i+1] = strings[i];
 			}
+
 		}
 		System.out.println("Current index " + index);
 		strings[index] = item;
@@ -84,7 +80,7 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 
 	public int search(String item){	
 		int lo = 0;
-		int high = numItems - 1;
+		int high = numItems;
 		int mid = 0;
 
 		while(lo<high){
@@ -101,6 +97,12 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 			return mid;
 		}
 		else{
+			if(item.compareTo(strings[mid]) < 0 && mid == numItems){			
+				mid+=1;
+				System.out.println("In else");
+
+			}
+
 			return mid*-1 ; //If value not found make it negative so we can 
 							//differentiate between found and not found.
 		}
