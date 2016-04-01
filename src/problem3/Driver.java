@@ -57,25 +57,23 @@ public class Driver {
 				case 3: 
 					String searchItem = r.readLine();
 					Integer i = null;
-					if(adt.numItems  == 0){
-						System.out.println("Not found. Insert at position 0");
-					}
-					else{
-						i = adt.search(searchItem);
-						i++;
-						if(i>0){
-							System.out.println("Found at position " + i);
+
+					
+						i = adt.search(searchItem);						
+						if(i>=0){
+							System.out.println("Found at position " + (i));
 						}
 						else{
-							System.out.println("Not found. Insert at position " + Math.abs(i));
+							System.out.println("Not found. Insert at position " + (-i-1));
 						}
-					}					
+										
 					break;
 
-				case 4: 					
-					adt.strings = new String[3];
+				case 4: 
+					String[] newArr = new String[3];
+					adt.setArray(newArr);
 					System.out.println("List Cleared");
-					adt.numItems = 0;
+					
 					break;
 
 				case 5: 

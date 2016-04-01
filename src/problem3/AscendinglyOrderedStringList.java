@@ -1,8 +1,8 @@
 package problem3;
 
 public class AscendinglyOrderedStringList implements AscendinglyOrderedStringListInterface  {
-	protected String[] strings = new String[3];
-	protected int numItems;
+	private String[] strings = new String[3];
+	private int numItems;
 
 	public AscendinglyOrderedStringList(){
 		numItems = 0;
@@ -16,6 +16,15 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 		return numItems;
 	}
 
+	public String[] getArray(){
+		return strings;
+	}
+	
+	public void setArray(String[] arr){
+		strings = arr;
+		numItems=0;
+	}
+	
 	public void add(String item)
 	{
 		Integer index = null;
@@ -78,7 +87,7 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 
 	public int search(String item){	
 		int lo = 0;
-		int high = numItems -1;
+		int high = numItems-1;
 		int mid = 0;
 
 		while(lo<high){
@@ -91,16 +100,16 @@ public class AscendinglyOrderedStringList implements AscendinglyOrderedStringLis
 			}			
 		}	
 
-		if(item.compareTo(strings[mid])==0){
-			return mid;
+		if(item.compareTo(strings[lo])==0){
+			return lo;
 		}
 		else{
-			if(mid == numItems - 1){			
-				mid+=1;
+			if(lo == numItems - 1 && item.compareTo(strings[lo])>0){			
+				lo+=1;
 				System.out.println("In else");
 			}
 
-			return -mid-1 ; 	//If value not found make it negative so we can 
+			return -lo-1 ; 	//If value not found make it negative so we can 
 								//differentiate between found and not found.
 		}
 	}
