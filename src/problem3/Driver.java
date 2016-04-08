@@ -44,8 +44,13 @@ public class Driver {
 				switch(getSelection()){
 				case 1: 
 					String item = r.readLine();
-					adt.add(item);
-					System.out.println("Item was added");
+					Integer searchResult = adt.search(item);
+					if(searchResult > 0){										
+						adt.add(item);	
+					}
+					else{
+						System.out.println("Already exists");
+					}
 					break;
 
 				case 2: 

@@ -14,6 +14,23 @@ import java.io.InputStreamReader;
  */
 
 public class Driver {
+	
+	private static Integer search(Integer searchItem, ListArrayListBasedPlus listArrayChild) throws NumberFormatException, IOException{			
+		for(Integer i = 0; i<ListArrayListBased.numItems; i++){
+			Integer currentItem = (Integer)listArrayChild.get(i);
+			
+			if(searchItem.equals(currentItem)){
+				System.out.println("Found at index : " + (i));
+				return i;
+			}
+			else if(searchItem<currentItem){
+				System.out.println("D.N.E, can be inserted at position " + i);
+				return -i-1;
+			}
+		}
+		System.out.println("D.N.E, can be inserted at position " + ListArrayListBased.numItems);
+		return -ListArrayListBased.numItems-1;
+	}
 
 	public static void main(String[] args) throws IOException {
 		ListArrayListBasedPlus listArrayChild = new ListArrayListBasedPlus();
@@ -40,29 +57,17 @@ public class Driver {
 
 			switch (entryInt) {
 			
-			//Insert a value into its correct position following a ascending order format
-			//This method eagerly advances to the next value if the searchKey > currentKey
+
 			case 1:
 				System.out.println("Enter a value : ");
-				Integer searchKey = Integer.parseInt(bRead.readLine().trim());  //Value to search for
-				Integer currentKey = (Integer)listArrayChild.get(0);			//Get first key for init. equality test
-				boolean added = false;											//So we know when to stop
-				try{
-					for(int i = 1; i<ListArrayListBased.numItems+1 && added==false; i++){					
-						if(searchKey>currentKey)	    //Eagerly advance if true
-						{
-							currentKey = (Integer)listArrayChild.get(i);
-						}
-						else if(searchKey<=currentKey)  //Add value if true then stop
-						{
-							listArrayChild.add(i-1, searchKey);
-							added=true;					//Exit method
-						}
-					}
+				Integer searchKey = Integer.parseInt(bRead.readLine().trim());
+				Integer position = search(searchKey, listArrayChild);
+				if(position>0){
+					System.out.println("Already in the list @ position " + position);
 				}
-				catch(ListIndexOutOfBoundsException e) //If we reach max index, add the searchKey to the last index.
-				{
-					listArrayChild.add(ListArrayListBased.numItems, searchKey);
+				else{
+					System.out.println("New item inserted @ position " + (-position-1));
+					listArrayChild.add(-position-1, searchKey);
 				}
 				break;
 
@@ -98,19 +103,8 @@ public class Driver {
 				}
 
 			case 4:
-				Object searchItem = Integer.parseInt(bRead.readLine().trim());	
-				Object currentItem;
-				boolean exists = false;
-				for(int i = 0; i<ListArrayListBased.numItems && exists == false; i++){ 
-					currentItem = listArrayChild.get(i);
-					if(searchItem.equals(currentItem)){
-						System.out.println("Found at index : " + i);
-						exists = true;
-					}
-				}				
-				if(exists == false){
-					System.out.println("D.N.E");
-				}
+				Integer i = search(Integer.parseInt(bRead.readLine().trim()),listArrayChild);
+				System.out.println("num" + i);
 				break;
 
 			case 5:
